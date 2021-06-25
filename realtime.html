@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Real Time Bus Tracker exercise</title>
+</head>
+
+<body>
+	<p>Open up Developer Tools and view the Console for the JSON output being fetched from the MTBA.</p>
+	<script>
+		// Run function
+		async function run() {
+			const locations = await getBusLocations();
+			console.log(new Date());
+			console.log(locations);
+
+			// Timer to avoid being banned
+			setTimeout(run, 15000);
+		}
+
+		// Getting bus info from MBTA
+		async function getBusLocations() {
+			const url = 'https://api-v3.mbta.com/vehicles?api_key=ca34f7b7ac8a445287cab52fb451030a&filter[route]=1&include=trip';
+			const response = await fetch(url);
+			const json = await response.json();
+			return json.data;
+		}
+
+		run();
+
+	</script>
+
+</body>
+
+</html>
